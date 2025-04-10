@@ -1,22 +1,24 @@
 'use client';
 
-import PropTypes from 'prop-types';
+import { useReactTable, getCoreRowModel, getSortedRowModel, createColumnHelper, flexRender, SortingState } from '@tanstack/react-table';
 import { useMemo, useState } from 'react';
-import { flexRender, getCoreRowModel, useReactTable, createColumnHelper, getSortedRowModel } from '@tanstack/react-table';
-import states from '@/data/states';
+import states from 'data/states';
+import type { EmployeeFormData } from 'types/employee';
 
-function Table({ data }) {
-    const [sorting, setSorting] = useState([]);
+interface TableProps {
+    data: EmployeeFormData[];
+}
 
-    const columnHelper = createColumnHelper();
+const columnHelper = createColumnHelper<EmployeeFormData>();
 
-    // ✅ Convertir le nom de l'État en abréviation
-    const getStateAbbreviation = (stateName) => {
-        const state = states.find((s) => s.name === stateName);
-        return state ? state.abbreviation : stateName;
-    };
+const getStateAbbreviation = (stateName: string) => {
+    const state = states.find((s) => s.name === stateName);
+    return state ? state.abbreviation : stateName;
+};
 
-    // ✅ Définition des colonnes
+const Table = ({ data }: TableProps) => {
+    const [sorting, setSorting] = useState<SortingState>([]);
+
     const columns = useMemo(
         () => [
             columnHelper.accessor('firstName', { header: 'Prénom' }),
@@ -32,10 +34,9 @@ function Table({ data }) {
             }),
             columnHelper.accessor('zipCode', { header: 'CP' }),
         ],
-        [columnHelper]
+        []
     );
 
-    // ✅ Initialisation de React Table
     const table = useReactTable({
         data,
         columns,
@@ -53,23 +54,13 @@ function Table({ data }) {
                         <tr key={headerGroup.id}>
                             {headerGroup.headers.map((header) => {
                                 const isSorted = header.column.getIsSorted();
-                                const isAscending = isSorted === 'asc';
-                                const isDescending = isSorted === 'desc';
                                 return (
                                     <th key={header.id} className="p-3 text-left">
                                         <div className="flex items-center justify-center text-sm">
-                                            {/* Titre de la colonne */}
                                             <span>{flexRender(header.column.columnDef.header, header.getContext())}</span>
-
-                                            {/* Flèches de tri (haut et bas) */}
-                                            <div
-                                                className="ml-2 flex flex-col items-center text-[10px] cursor-pointer"
-                                                onClick={() => {
-                                                    header.column.toggleSorting();
-                                                }}
-                                            >
-                                                <i className={`fa-solid fa-caret-up ${isAscending ? 'text-emerald-500' : ''} block`}></i>
-                                                <i className={`fa-solid fa-caret-down ${isDescending ? 'text-red-500' : ''} block`}></i>
+                                            <div className="ml-2 flex flex-col items-center text-[10px] cursor-pointer" onClick={() => header.column.toggleSorting()}>
+                                                <i className={`fa-solid fa-caret-up ${isSorted === 'asc' ? 'text-emerald-500' : ''} block`}></i>
+                                                <i className={`fa-solid fa-caret-down ${isSorted === 'desc' ? 'text-red-500' : ''} block`}></i>
                                             </div>
                                         </div>
                                     </th>
@@ -91,7 +82,7 @@ function Table({ data }) {
                         ))
                     ) : (
                         <tr>
-                            <td colSpan="8" className="p-3 text-center text-gray-500">
+                            <td colSpan={columns.length} className="p-3 text-center text-gray-500">
                                 Aucun employé trouvé.
                             </td>
                         </tr>
@@ -100,22 +91,6 @@ function Table({ data }) {
             </table>
         </div>
     );
-}
-
-// ✅ Définition des PropTypes
-Table.propTypes = {
-    data: PropTypes.arrayOf(
-        PropTypes.shape({
-            firstName: PropTypes.string.isRequired,
-            lastName: PropTypes.string.isRequired,
-            dateOfBirth: PropTypes.string.isRequired,
-            startDate: PropTypes.string.isRequired,
-            department: PropTypes.string.isRequired,
-            city: PropTypes.string.isRequired,
-            state: PropTypes.string.isRequired,
-            zipCode: PropTypes.string.isRequired,
-        })
-    ).isRequired,
 };
 
 export default Table;

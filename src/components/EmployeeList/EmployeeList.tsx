@@ -1,34 +1,40 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Table from '@/components/Table/Table';
-import EmployeeCards from '@/components/EmployeeCards/EmployeeCards';
-import Pagination from '@/components/Pagination/Pagination';
-import Dropdown from '@/components/Dropdown/Dropdown';
 import { useForm, Controller } from 'react-hook-form';
+import Dropdown from 'components/Dropdown/Dropdown';
+import EmployeeCards from 'components/EmployeeCards/EmployeeCards';
+import Pagination from 'components/Pagination/Pagination';
+import Table from 'components/Table/Table';
+import type { EmployeeFormData } from 'types/employee';
 
-export default function EmployeeList({ initialEmployees }) {
-    const [mergedEmployees, setMergedEmployees] = useState(initialEmployees || []);
-    const [employeesPerPage, setEmployeesPerPage] = useState(10);
-    const [currentPage, setCurrentPage] = useState(1);
-    const { control, setValue, watch } = useForm();
-    const searchTerm = watch('searchTerm', '');
+interface EmployeeListProps {
+    initialEmployees: EmployeeFormData[];
+}
+
+type SearchForm = { searchTerm: string };
+
+export default function EmployeeList({ initialEmployees }: EmployeeListProps) {
+    const [mergedEmployees, setMergedEmployees] = useState<EmployeeFormData[]>(initialEmployees ?? []);
+    const [employeesPerPage, setEmployeesPerPage] = useState<number>(10);
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const { control, setValue, watch } = useForm<SearchForm>({
+        defaultValues: { searchTerm: '' },
+    });
+
+    const searchTerm = watch('searchTerm');
 
     useEffect(() => {
         const storedEmployees = localStorage.getItem('employees');
         if (storedEmployees) {
-            const parsed = JSON.parse(storedEmployees);
-            // Merge en mettant les nouveaux d'abord
+            const parsed: EmployeeFormData[] = JSON.parse(storedEmployees);
             setMergedEmployees([...parsed, ...initialEmployees]);
         }
     }, [initialEmployees]);
 
     const filteredEmployees =
         searchTerm.length >= 2
-            ? mergedEmployees.filter((employee) => {
-                  const term = searchTerm.toLowerCase();
-                  return Object.values(employee).some((value) => value.toLowerCase().startsWith(term));
-              })
+            ? mergedEmployees.filter((employee) => Object.values(employee).some((value) => typeof value === 'string' && value.toLowerCase().startsWith(searchTerm.toLowerCase())))
             : mergedEmployees;
 
     const indexOfLast = currentPage * employeesPerPage;
@@ -58,12 +64,11 @@ export default function EmployeeList({ initialEmployees }) {
                         setCurrentPage(1);
                     }}
                     className="w-full md:w-auto"
-                    isEmployeeListPage={true}
+                    isEmployeeListPage
                 />
                 <Controller
                     name="searchTerm"
                     control={control}
-                    defaultValue=""
                     render={({ field }) => (
                         <input
                             {...field}
@@ -84,7 +89,7 @@ export default function EmployeeList({ initialEmployees }) {
             <div className="mt-6 lg:block overflow-x-auto text-sm">
                 <Table data={currentEmployees} />
             </div>
-            <Pagination totalEmployees={filteredEmployees.length} employeesPerPage={employeesPerPage} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+            <Pagination totalEmployees={totalEmployees} employeesPerPage={employeesPerPage} currentPage={currentPage} setCurrentPage={setCurrentPage} />
         </div>
     );
 }

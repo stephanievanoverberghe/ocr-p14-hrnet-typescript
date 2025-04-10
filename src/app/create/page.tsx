@@ -6,12 +6,13 @@ import * as yup from 'yup';
 import { useRouter } from 'next/navigation';
 import { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { addEmployee } from '@/store/employeeSlice';
-import CustomDatePicker from '@/components/DatePicker/DatePicker';
-import Dropdown from '@/components/Dropdown/Dropdown';
-import Modal from '@/components/Modal/Modal';
-import states from '@/data/states';
-import departments from '@/data/departments';
+import { addEmployee } from 'store/employee/employeeSlice';
+import CustomDatePicker from 'components/DatePicker/DatePicker';
+import Dropdown from 'components/Dropdown/Dropdown';
+import Modal from 'components/Modal/Modal';
+import states from 'data/states';
+import departments from 'data/departments';
+import type { EmployeeFormData } from 'types/employee';
 
 const employeeSchema = yup.object().shape({
     firstName: yup.string().required('Le prénom est requis'),
@@ -38,11 +39,11 @@ export default function CreateEmployeePage() {
         handleSubmit,
         control,
         formState: { errors },
-    } = useForm({
+    } = useForm<EmployeeFormData>({
         resolver: yupResolver(employeeSchema),
     });
 
-    const onSubmit = (data) => {
+    const onSubmit = (data: EmployeeFormData) => {
         const formattedData = {
             ...data,
             dateOfBirth: data.dateOfBirth?.toISOString().split('T')[0],

@@ -1,6 +1,13 @@
-import PropTypes from 'prop-types';
+'use client';
 
-function Pagination({ totalEmployees, employeesPerPage, currentPage, setCurrentPage }) {
+interface PaginationProps {
+    totalEmployees: number;
+    employeesPerPage: number;
+    currentPage: number;
+    setCurrentPage: (page: number | ((prev: number) => number)) => void;
+}
+
+const Pagination = ({ totalEmployees, employeesPerPage, currentPage, setCurrentPage }: PaginationProps) => {
     const totalPages = Math.ceil(totalEmployees / employeesPerPage);
 
     if (totalPages <= 1) return null;
@@ -17,7 +24,7 @@ function Pagination({ totalEmployees, employeesPerPage, currentPage, setCurrentP
         startPage = Math.max(totalPages - maxVisiblePages + 1, 1);
     }
 
-    const handleClick = (page) => {
+    const handleClick = (page: number) => {
         setCurrentPage(page);
     };
 
@@ -26,7 +33,7 @@ function Pagination({ totalEmployees, employeesPerPage, currentPage, setCurrentP
             <button
                 onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
                 disabled={currentPage === 1}
-                className={`px-3 py-1 border rounded ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'bg-white text-gray-700'}`}
+                className={`px-3 py-1 border rounded transition ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'bg-white text-gray-700 hover:bg-gray-100'}`}
                 aria-label="Page précédente"
             >
                 <i className="fa-solid fa-angles-left"></i>
@@ -36,7 +43,7 @@ function Pagination({ totalEmployees, employeesPerPage, currentPage, setCurrentP
                 <button
                     key={page}
                     onClick={() => handleClick(page)}
-                    className={`px-3 py-1 border rounded ${currentPage === page ? 'bg-[#5a6f07] text-white' : 'bg-white text-gray-700'}`}
+                    className={`px-3 py-1 border rounded transition ${currentPage === page ? 'bg-[#5a6f07] text-white' : 'bg-white text-gray-700 hover:bg-gray-100'}`}
                     aria-label={`Page ${page}`}
                     aria-current={currentPage === page ? 'page' : undefined}
                 >
@@ -47,20 +54,13 @@ function Pagination({ totalEmployees, employeesPerPage, currentPage, setCurrentP
             <button
                 onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
                 disabled={currentPage === totalPages}
-                className={`px-3 py-1 border rounded ${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : 'bg-white text-gray-700'}`}
+                className={`px-3 py-1 border rounded transition ${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : 'bg-white text-gray-700 hover:bg-gray-100'}`}
                 aria-label="Page suivante"
             >
                 <i className="fa-solid fa-angles-right"></i>
             </button>
         </div>
     );
-}
-
-Pagination.propTypes = {
-    totalEmployees: PropTypes.number.isRequired,
-    employeesPerPage: PropTypes.number.isRequired,
-    currentPage: PropTypes.number.isRequired,
-    setCurrentPage: PropTypes.func.isRequired,
 };
 
 export default Pagination;

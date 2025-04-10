@@ -1,16 +1,16 @@
 import Script from 'next/script';
-
-import { Providers } from '@/store/provider';
-import Header from '@/components/Header/Header';
-import Footer from '@/components/Footer/Footer';
+import type { Metadata } from 'next';
+import Header from 'components/Header/Header';
+import Footer from 'components/Footer/Footer';
 import './globals.css';
+import { Providers } from 'store/Providers';
 
-export const metadata = {
+export const metadata: Metadata = {
     title: 'HRnet',
     description: 'Application de gestion des employés',
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="fr">
             <head>

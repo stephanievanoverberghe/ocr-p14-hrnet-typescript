@@ -4,17 +4,18 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { HiMenu, HiX } from 'react-icons/hi';
 
-function Header() {
+const Header = () => {
     const [menuOpen, setMenuOpen] = useState(false);
-    const menuRef = useRef(null);
+    const menuRef = useRef<HTMLDivElement | null>(null);
 
     // Fermer le menu quand on clique à l'extérieur
     useEffect(() => {
-        function handleClickOutside(event) {
-            if (menuRef.current && !menuRef.current.contains(event.target)) {
+        function handleClickOutside(event: MouseEvent) {
+            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
                 setMenuOpen(false);
             }
         }
+
         if (menuOpen) {
             document.addEventListener('mousedown', handleClickOutside);
         }
@@ -66,6 +67,6 @@ function Header() {
             </div>
         </header>
     );
-}
+};
 
 export default Header;
