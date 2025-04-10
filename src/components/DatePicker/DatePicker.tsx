@@ -2,6 +2,7 @@
 
 import { Controller, Control, FieldValues } from 'react-hook-form';
 import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 interface CustomDatePickerProps {
     name: string;
@@ -29,7 +30,6 @@ const CustomDatePicker = ({ name, label, control, error }: CustomDatePickerProps
                         className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#5a6f07]"
                         aria-invalid={!!error}
                         aria-describedby={error ? `${name}Error` : undefined}
-                        role="textbox"
                     />
                 )}
             />

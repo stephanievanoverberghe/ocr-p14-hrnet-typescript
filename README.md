@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Openclassrooms - **Projet 14** - HRNet
 
-## Getting Started
+HRNet est une application de gestion des employés, construite avec **Next.js**, **TypeScript**, **Redux**, **React Hook Form**, **Yup** pour la validation des formulaires, et **Tailwind CSS** pour la mise en forme.
 
-First, run the development server:
+## Fonctionnalités
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+-   Gestion des employés avec un formulaire pour ajouter de nouveaux employés.
+-   Validation de formulaire avec `Yup` et `React Hook Form`.
+-   Utilisation de Redux pour gérer l'état global de l'application.
+-   Affichage réactif des employés dans une grille de cartes et dans un tableau.
+-   Ajout d'employés avec des données stockées localement dans `localStorage`.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Prérequis
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Avant de commencer, assurez-vous d'avoir les outils suivants installés :
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+-   **Node.js** : [Télécharger et installer Node.js](https://nodejs.org/)
+-   **npm** ou **yarn** : Le gestionnaire de paquets utilisé pour installer les dépendances.
 
-## Learn More
+## Installation
 
-To learn more about Next.js, take a look at the following resources:
+1. Clonez ce dépôt sur votre machine locale :
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    ```bash
+    git clone https://github.com/stephanievanoverberghe/ocr-p14-hrnet-nextjs.git
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. Installez les dépendances :
 
-## Deploy on Vercel
+    ```bash
+    npm install
+    ou
+    yarn install
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. Lancez le serveur de développement :
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+    ```bash
+    npm run dev
+    ou
+    yarn dev
+    ```
+
+4. Ouvrez votre navigateur à
+
+    ```bash
+    http://localhost:3000
+    ```
+
+## Structure du Projet
+
+-   **`src/app`** : Contient les pages et les composants principaux de l'application.
+
+    -   **`create`** : Page de création d'un employé.
+    -   **`list`** : Page affichant la liste des employés.
+
+-   **`src/components`** : Composants réutilisables comme les cartes des employés, le formulaire de sélection (Dropdown), et la fenêtre modale.
+-   **`src/store`** : Contient les slices Redux pour gérer l'état des employés.
+
+-   **`src/data`** : Contient les données statiques comme les états et départements.
+
+-   **`src/types`** : Types TypeScript pour la gestion des données des employés.
+
+## Fonctionnement
+
+L'application permet d'ajouter des employés via un formulaire. Les informations des employés sont stockées dans `localStorage` et peuvent être consultées sur la page de liste. Un modal confirme l'ajout d'un employé avec succès.
+
+### Exemple de données d'un employé :
+
+-   Prénom et Nom
+-   Date de naissance
+-   Date d'embauche
+-   Adresse (rue, ville, état, code postal)
+-   Département
+
+## Formulaire
+
+Le formulaire utilise **React Hook Form** pour la gestion des formulaires et **Yup** pour la validation. Les champs sont validés avant l'enregistrement, et des messages d'erreur sont affichés si un champ n'est pas rempli correctement.
+
+## Stockage local
+
+Les employés sont stockés dans le **localStorage** de votre navigateur. Chaque nouvel employé ajouté est sauvegardé et persisté lors du rechargement de la page.
+
+## Technologies utilisées
+
+-   **Next.js** : Framework React pour la création de sites web et d'applications web.
+-   **Redux Toolkit** : Pour la gestion d'état.
+-   **React Hook Form** : Pour la gestion des formulaires.
+-   **Yup** : Pour la validation des formulaires.
+-   **Tailwind CSS** : Pour le design réactif et moderne.
+-   **TypeScript** : Pour une meilleure expérience de développement avec le typage fort.
+
+## Apprentissage
+
+Si vous souhaitez en savoir plus sur les technologies utilisées dans ce projet, voici quelques ressources utiles :
+
+-   [Next.js Documentation](https://nextjs.org/docs)
+-   [React Hook Form Documentation](https://react-hook-form.com/)
+-   [Yup Documentation](https://github.com/jquense/yup)
+-   [Redux Toolkit Documentation](https://redux-toolkit.js.org/)
+-   [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+
+## Déploiement
+
+### Déployer sur Vercel
+
+Le moyen le plus simple de déployer votre application Next.js est d'utiliser la plateforme **Vercel**.
+
+1. Créez un compte sur [Vercel](https://vercel.com/).
+2. Connectez votre dépôt GitHub à Vercel.
+3. Déployez l'application avec un clic.
+
+Vercel s'occupera de tout le déploiement pour vous, et vous n'aurez plus qu'à suivre les instructions pour connecter votre projet à leur plateforme.
+
+## Contributions
+
+Les contributions sont les bienvenues ! Si vous avez des idées d'amélioration ou des corrections à proposer, ouvrez une **issue** ou créez une **pull request**.
+
+---
+
+Merci d'utiliser **HRNet** ! 🎉

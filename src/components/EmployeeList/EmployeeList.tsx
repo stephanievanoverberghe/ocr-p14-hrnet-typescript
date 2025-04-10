@@ -12,17 +12,24 @@ interface EmployeeListProps {
     initialEmployees: EmployeeFormData[];
 }
 
-type SearchForm = { searchTerm: string };
+type SearchForm = {
+    searchTerm: string;
+    employeesPerPage: number;
+};
 
 export default function EmployeeList({ initialEmployees }: EmployeeListProps) {
     const [mergedEmployees, setMergedEmployees] = useState<EmployeeFormData[]>(initialEmployees ?? []);
-    const [employeesPerPage, setEmployeesPerPage] = useState<number>(10);
     const [currentPage, setCurrentPage] = useState<number>(1);
+
     const { control, setValue, watch } = useForm<SearchForm>({
-        defaultValues: { searchTerm: '' },
+        defaultValues: {
+            searchTerm: '',
+            employeesPerPage: 10,
+        },
     });
 
     const searchTerm = watch('searchTerm');
+    const employeesPerPage = watch('employeesPerPage');
 
     useEffect(() => {
         const storedEmployees = localStorage.getItem('employees');
@@ -47,7 +54,7 @@ export default function EmployeeList({ initialEmployees }: EmployeeListProps) {
             <h1 className="text-2xl font-bold text-center text-[#5a6f07] mb-4">Liste des employés</h1>
 
             <div className="flex flex-col md:flex-row md:justify-between md:items-center w-full">
-                <Dropdown
+                <Dropdown<SearchForm>
                     name="employeesPerPage"
                     label="Afficher par"
                     options={[
@@ -57,15 +64,16 @@ export default function EmployeeList({ initialEmployees }: EmployeeListProps) {
                         { value: 100, label: '100' },
                     ]}
                     control={control}
-                    error={null}
+                    error={undefined}
                     onChange={(e) => {
                         const value = Number(e.target.value);
-                        setEmployeesPerPage(value);
+                        setValue('employeesPerPage', value);
                         setCurrentPage(1);
                     }}
                     className="w-full md:w-auto"
                     isEmployeeListPage
                 />
+
                 <Controller
                     name="searchTerm"
                     control={control}

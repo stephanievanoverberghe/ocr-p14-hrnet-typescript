@@ -46,8 +46,8 @@ export default function CreateEmployeePage() {
     const onSubmit = (data: EmployeeFormData) => {
         const formattedData = {
             ...data,
-            dateOfBirth: data.dateOfBirth?.toISOString().split('T')[0],
-            startDate: data.startDate?.toISOString().split('T')[0],
+            dateOfBirth: data.dateOfBirth ? new Date(data.dateOfBirth) : null,
+            startDate: data.startDate ? new Date(data.startDate) : null,
         };
         dispatch(addEmployee(formattedData));
         setIsModalOpen(true);
@@ -148,6 +148,7 @@ export default function CreateEmployeePage() {
                     options={[{ value: '', label: 'Choisir un État' }, ...states.map((state) => ({ value: state.abbreviation, label: state.name }))]}
                     control={control}
                     error={errors.state?.message}
+                    isEmployeeListPage={false}
                 />
 
                 <div>
@@ -175,6 +176,7 @@ export default function CreateEmployeePage() {
                     options={[{ value: '', label: 'Choisir un département' }, ...departments.map((dep) => ({ value: dep.name, label: dep.name }))]}
                     control={control}
                     error={errors.department?.message}
+                    isEmployeeListPage={false}
                 />
 
                 <button type="submit" className="w-full bg-[#5a6f07] text-white py-2 rounded hover:bg-[#4e5d06] lg:cursor-pointer transition duration-300 ease-in-out">
