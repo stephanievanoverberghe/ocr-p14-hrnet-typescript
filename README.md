@@ -102,15 +102,7 @@ Si vous souhaitez en savoir plus sur les technologies utilisées dans ce projet,
 
 ## Déploiement
 
-### Déployer sur Vercel
-
-Le moyen le plus simple de déployer votre application Next.js est d'utiliser la plateforme **Vercel**.
-
-1. Créez un compte sur [Vercel](https://hrnet-azure.vercel.app/create).
-2. Connectez votre dépôt GitHub à Vercel.
-3. Déployez l'application avec un clic.
-
-Vercel s'occupera de tout le déploiement pour vous, et vous n'aurez plus qu'à suivre les instructions pour connecter votre projet à leur plateforme.
+[Vercel](https://hrnet-azure.vercel.app/create).
 
 ## Contributions
 
