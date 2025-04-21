@@ -14,7 +14,7 @@ import states from 'data/states';
 import departments from 'data/departments';
 import type { EmployeeFormData } from 'types/employeeFormData';
 import type { EmployeeFormInput } from 'types/employeeFormInput';
-import { format } from 'date-fns';
+import { format } from 'date-fns/format';
 
 const employeeSchema: yup.ObjectSchema<EmployeeFormInput> = yup.object({
     firstName: yup.string().required('Le prénom est requis'),
