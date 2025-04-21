@@ -26,6 +26,7 @@ const CustomDatePicker = <T extends FieldValues>({ name, label, control, error }
                         id={name}
                         selected={field.value}
                         onChange={(date) => field.onChange(date)}
+                        showIcon
                         dateFormat="MM/dd/yyyy"
                         className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#5a6f07]"
                         aria-invalid={!!error}

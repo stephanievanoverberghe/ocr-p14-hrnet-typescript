@@ -109,7 +109,6 @@ export default function CreateEmployeePage() {
                         </p>
                     )}
                 </div>
-
                 <CustomDatePicker name="dateOfBirth" label="Date de naissance" control={control} error={errors.dateOfBirth?.message} />
 
                 <CustomDatePicker name="startDate" label="Date d'embauche" control={control} error={errors.startDate?.message} />
