@@ -2,6 +2,10 @@
 
 HRNet est une application de gestion des employés, construite avec **Next.js**, **TypeScript**, **Redux**, **React Hook Form**, **Yup** pour la validation des formulaires, et **Tailwind CSS** pour la mise en forme.
 
+## Screenshot
+
+![](./public/screenshot.png)
+
 ## Fonctionnalités
 
 -   Gestion des employés avec un formulaire pour ajouter de nouveaux employés.
@@ -102,7 +106,7 @@ Si vous souhaitez en savoir plus sur les technologies utilisées dans ce projet,
 
 ## Déploiement
 
-[Vercel](https://hrnet-azure.vercel.app/create).
+[Vercel](https://hrnet-azure.vercel.app/create)
 
 ## Contributions
 
