@@ -6,7 +6,7 @@ import Dropdown from 'components/Dropdown/Dropdown';
 import EmployeeCards from 'components/EmployeeCards/EmployeeCards';
 import Pagination from 'components/Pagination/Pagination';
 import Table from 'components/Table/Table';
-import type { EmployeeFormData } from 'types/employee';
+import type { EmployeeFormData } from 'types/employeeFormData';
 
 interface EmployeeListProps {
     initialEmployees: EmployeeFormData[];

@@ -1,6 +1,6 @@
 'use client';
 
-import type { EmployeeFormData } from 'types/employee';
+import type { EmployeeFormData } from 'types/employeeFormData';
 
 interface EmployeeCardsProps {
     employees: EmployeeFormData[];

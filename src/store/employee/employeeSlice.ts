@@ -1,7 +1,7 @@
 'use client';
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import type { EmployeeFormData } from 'types/employee';
+import type { EmployeeFormData } from 'types/employeeFormData';
 
 interface EmployeeState {
     employees: EmployeeFormData[];

@@ -1,7 +1,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 import EmployeeList from 'components/EmployeeList/EmployeeList';
-import type { EmployeeFormData } from 'types/employee';
+import type { EmployeeFormData } from 'types/employeeFormData';
 
 export default async function ListPage() {
     const filePath = path.join(process.cwd(), 'public/data/employees.json');

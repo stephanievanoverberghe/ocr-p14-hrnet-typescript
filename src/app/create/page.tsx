@@ -12,9 +12,11 @@ import Dropdown from 'components/Dropdown/Dropdown';
 import Modal from 'components/Modal/Modal';
 import states from 'data/states';
 import departments from 'data/departments';
-import type { EmployeeFormData } from 'types/employee';
+import type { EmployeeFormData } from 'types/employeeFormData';
+import type { EmployeeFormInput } from 'types/employeeFormInput';
+import { format } from 'date-fns';
 
-const employeeSchema = yup.object().shape({
+const employeeSchema: yup.ObjectSchema<EmployeeFormInput> = yup.object({
     firstName: yup.string().required('Le prénom est requis'),
     lastName: yup.string().required('Le nom est requis'),
     dateOfBirth: yup.date().nullable().typeError('Veuillez entrer une date valide').required('La date de naissance est requise'),
@@ -39,16 +41,24 @@ export default function CreateEmployeePage() {
         handleSubmit,
         control,
         formState: { errors },
-    } = useForm<EmployeeFormData>({
+    } = useForm<EmployeeFormInput>({
         resolver: yupResolver(employeeSchema),
     });
 
-    const onSubmit = (data: EmployeeFormData) => {
-        const formattedData = {
-            ...data,
-            dateOfBirth: data.dateOfBirth ? new Date(data.dateOfBirth) : null,
-            startDate: data.startDate ? new Date(data.startDate) : null,
+    const onSubmit = (data: EmployeeFormInput) => {
+        const formattedData: EmployeeFormData = {
+            id: crypto.randomUUID(),
+            firstName: data.firstName,
+            lastName: data.lastName,
+            dateOfBirth: data.dateOfBirth ? format(data.dateOfBirth, 'yyyy-MM-dd') : '',
+            startDate: data.startDate ? format(data.startDate, 'yyyy-MM-dd') : '',
+            street: data.street,
+            city: data.city,
+            state: data.state,
+            zipCode: data.zipCode,
+            department: data.department,
         };
+
         dispatch(addEmployee(formattedData));
         setIsModalOpen(true);
     };

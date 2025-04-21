@@ -2,8 +2,8 @@ export interface EmployeeFormData {
     id: string;
     firstName: string;
     lastName: string;
-    dateOfBirth: Date | null;
-    startDate: Date | null;
+    dateOfBirth: string;
+    startDate: string;
     street: string;
     city: string;
     state: string;

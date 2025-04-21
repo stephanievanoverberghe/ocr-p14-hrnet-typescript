@@ -3,7 +3,7 @@
 import { useReactTable, getCoreRowModel, getSortedRowModel, createColumnHelper, flexRender, SortingState } from '@tanstack/react-table';
 import { useMemo, useState } from 'react';
 import states from 'data/states';
-import type { EmployeeFormData } from 'types/employee';
+import type { EmployeeFormData } from 'types/employeeFormData';
 
 interface TableProps {
     data: EmployeeFormData[];

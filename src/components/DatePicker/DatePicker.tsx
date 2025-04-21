@@ -1,17 +1,17 @@
 'use client';
 
-import { Controller, Control, FieldValues } from 'react-hook-form';
+import { Controller, Control, FieldValues, Path } from 'react-hook-form';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-interface CustomDatePickerProps {
-    name: string;
+interface CustomDatePickerProps<T extends FieldValues> {
+    name: Path<T>;
     label: string;
-    control: Control<FieldValues>;
+    control: Control<T>;
     error?: string;
 }
 
-const CustomDatePicker = ({ name, label, control, error }: CustomDatePickerProps) => {
+const CustomDatePicker = <T extends FieldValues>({ name, label, control, error }: CustomDatePickerProps<T>) => {
     return (
         <div className="w-full">
             <label htmlFor={name} className="block text-sm font-medium text-gray-700">
