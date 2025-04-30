@@ -13,12 +13,19 @@ export const metadata: Metadata = {
     },
 };
 
+/**
+ * Layout racine de l'application. Contient l'en-tête, le pied de page, les styles globaux, et les providers.
+ *
+ * @param {Object} props - Propriétés du composant.
+ * @param {React.ReactNode} props.children - Contenu principal à afficher entre le header et le footer.
+ * @returns {JSX.Element} - Layout global de l'application.
+ */
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="fr">
             <head />
 
-            <body className="bg-gray-100 text-gray-900">
+            <body className="bg-gray-100 text-gray-900 min-h-screen flex flex-col justify-between">
                 {/* Font Awesome Kit */}
                 <Script src="https://kit.fontawesome.com/e5228146fd.js" crossOrigin="anonymous" strategy="beforeInteractive" />
                 <Providers>

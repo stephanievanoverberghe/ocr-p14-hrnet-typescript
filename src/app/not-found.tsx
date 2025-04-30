@@ -1,3 +1,8 @@
+/**
+ * Composant de fallback pour les routes non trouvées (404).
+ *
+ * @returns {JSX.Element} - Message d'erreur 404.
+ */
 export default function NotFound() {
     return (
         <div className="text-center p-10">

@@ -1,5 +1,13 @@
 'use client';
 
+/**
+ * Composant d'erreur global pour gérer les erreurs runtime à l'échelle de l'application.
+ *
+ * @param {Object} props - Propriétés du composant.
+ * @param {Error} props.error - L'erreur capturée.
+ * @param {() => void} props.reset - Fonction pour tenter de réinitialiser l'état de l'application.
+ * @returns {JSX.Element} - Composant d'affichage de l'erreur.
+ */
 export default function GlobalError({ error, reset }: { error: Error; reset: () => void }) {
     return (
         <div className="text-center p-4">

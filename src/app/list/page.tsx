@@ -1,3 +1,10 @@
+/**
+ * Page de liste des employés.
+ *
+ * Charge les données initiales depuis un fichier JSON local (public/data/employees.json),
+ * puis les passe au composant EmployeeList pour affichage avec tri et pagination.
+ */
+
 import fs from 'fs/promises';
 import path from 'path';
 import EmployeeList from 'components/EmployeeList/EmployeeList';

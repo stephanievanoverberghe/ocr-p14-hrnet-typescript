@@ -1,3 +1,13 @@
+/**
+ * Page de création d'un nouvel employé.
+ *
+ * Utilise react-hook-form avec Yup pour la validation,
+ * et dispatch Redux pour stocker l'employé ajouté.
+ *
+ * Les champs incluent : prénom, nom, dates, adresse, etc.
+ * Les dates sont formatées avant stockage dans le state global.
+ */
+
 'use client';
 
 import { useForm } from 'react-hook-form';
@@ -16,6 +26,9 @@ import type { EmployeeFormData } from 'types/employeeFormData';
 import type { EmployeeFormInput } from 'types/employeeFormInput';
 import { format } from 'date-fns/format';
 
+/**
+ * Schéma de validation Yup pour le formulaire d'employé.
+ */
 const employeeSchema: yup.ObjectSchema<EmployeeFormInput> = yup.object({
     firstName: yup.string().required('Le prénom est requis'),
     lastName: yup.string().required('Le nom est requis'),
@@ -31,11 +44,19 @@ const employeeSchema: yup.ObjectSchema<EmployeeFormInput> = yup.object({
     department: yup.string().required('Le département est requis'),
 });
 
+/**
+ * Page de création d'un nouvel employé.
+ * Affiche un formulaire avec validation et envoie les données au state global Redux.
+ * @returns {JSX.Element} Composant de page pour la création d'un employé
+ */
 export default function CreateEmployeePage() {
     const router = useRouter();
     const dispatch = useDispatch();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    /**
+     * Initialisation du formulaire avec react-hook-form et yup.
+     */
     const {
         register,
         handleSubmit,
@@ -45,6 +66,11 @@ export default function CreateEmployeePage() {
         resolver: yupResolver(employeeSchema),
     });
 
+    /**
+     * Fonction déclenchée à la soumission du formulaire.
+     * Formate les dates et envoie les données à Redux.
+     * @param {EmployeeFormInput} data - Données du formulaire.
+     */
     const onSubmit = (data: EmployeeFormInput) => {
         const formattedData: EmployeeFormData = {
             id: crypto.randomUUID(),
@@ -63,6 +89,9 @@ export default function CreateEmployeePage() {
         setIsModalOpen(true);
     };
 
+    /**
+     * Ferme la modal et redirige vers la liste des employés après un court délai.
+     */
     const handleCloseModal = useCallback(() => {
         setIsModalOpen(false);
         setTimeout(() => router.push('/list'), 100);
